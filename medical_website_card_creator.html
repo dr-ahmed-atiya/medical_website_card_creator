@@ -1219,6 +1219,62 @@
             return null;
         }
 
+        function getHtml2CanvasConfig() {
+            return {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                logging: false,
+                onclone: (clonedDoc) => {
+                    const clonedIconWrapper = clonedDoc.getElementById('cardIconWrapper');
+                    const clonedIcon = clonedDoc.getElementById('cardIcon');
+                    const clonedRefCode = clonedDoc.getElementById('previewRefCode');
+                    const clonedBadgeIcon = clonedDoc.querySelector('.fa-check-double');
+
+                    if (clonedIconWrapper) {
+                        clonedIconWrapper.style.display = 'flex';
+                        clonedIconWrapper.style.alignItems = 'center';
+                        clonedIconWrapper.style.justifyContent = 'center';
+                        clonedIconWrapper.style.paddingBottom = '12px';
+                    }
+                    if (clonedIcon) {
+                        clonedIcon.style.display = 'flex';
+                        clonedIcon.style.alignItems = 'center';
+                        clonedIcon.style.justifyContent = 'center';
+                        clonedIcon.style.lineHeight = '1';
+                        clonedIcon.style.paddingBottom = '12px';
+                    }
+                    if (clonedRefCode) {
+                        clonedRefCode.style.display = 'flex';
+                        clonedRefCode.style.alignItems = 'center';
+                        clonedRefCode.style.justifyContent = 'center';
+                        clonedRefCode.style.lineHeight = '1';
+                        clonedRefCode.style.paddingBottom = '17px';
+                    }
+                    if (clonedBadgeIcon) {
+                        clonedBadgeIcon.style.position = 'relative';
+                        clonedBadgeIcon.style.top = '-7px';
+                    }
+                    const clonedTitle = clonedDoc.getElementById('previewTitle');
+                    if (clonedTitle) {
+                        clonedTitle.style.position = 'relative';
+                        clonedTitle.style.top = '-25px';
+                    }
+                    const clonedBodyContainer = clonedDoc.getElementById('previewBodyContainer');
+                    if (clonedBodyContainer) {
+                        clonedBodyContainer.style.position = 'relative';
+                        clonedBodyContainer.style.top = '-10px';
+                    }
+                    const clonedAdviceWrapper = clonedDoc.getElementById('adviceWrapper');
+                    if (clonedAdviceWrapper) {
+                        clonedAdviceWrapper.style.position = 'relative';
+                        clonedAdviceWrapper.style.top = '-5px';
+                    }
+                }
+            };
+        }
+
         async function shareToWhatsApp() {
             const shareBtn = document.querySelector('[onclick="shareToWhatsApp()"]');
             const originalHTML = shareBtn ? shareBtn.innerHTML : '';
@@ -1232,56 +1288,7 @@
             if (!cardCanvas) return;
 
             try {
-                const canvas = await html2canvas(cardCanvas, {
-                    scale: 3,
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: null,
-                    logging: false,
-                    onclone: (clonedDoc) => {
-                        const clonedIconWrapper = clonedDoc.getElementById('cardIconWrapper');
-                        const clonedIcon = clonedDoc.getElementById('cardIcon');
-                        const clonedRefCode = clonedDoc.getElementById('previewRefCode');
-                        const clonedBadgeIcon = clonedDoc.querySelector('.fa-check-double');
-
-                        if (clonedIconWrapper) {
-                            clonedIconWrapper.style.display = 'flex';
-                            clonedIconWrapper.style.alignItems = 'center';
-                            clonedIconWrapper.style.justifyContent = 'center';
-                        }
-                        if (clonedIcon) {
-                            clonedIcon.style.display = 'flex';
-                            clonedIcon.style.alignItems = 'center';
-                            clonedIcon.style.justifyContent = 'center';
-                            clonedIcon.style.lineHeight = '1';
-                        }
-                        if (clonedRefCode) {
-                            clonedRefCode.style.display = 'flex';
-                            clonedRefCode.style.alignItems = 'center';
-                            clonedRefCode.style.justifyContent = 'center';
-                            clonedRefCode.style.lineHeight = '1';
-                        }
-                        if (clonedBadgeIcon) {
-                            clonedBadgeIcon.style.position = 'relative';
-                            clonedBadgeIcon.style.top = '-7px';
-                        }
-                        const clonedTitle = clonedDoc.getElementById('previewTitle');
-                        if (clonedTitle) {
-                            clonedTitle.style.position = 'relative';
-                            clonedTitle.style.top = '-25px';
-                        }
-                        const clonedBodyContainer = clonedDoc.getElementById('previewBodyContainer');
-                        if (clonedBodyContainer) {
-                            clonedBodyContainer.style.position = 'relative';
-                            clonedBodyContainer.style.top = '-10px';
-                        }
-                        const clonedAdviceWrapper = clonedDoc.getElementById('adviceWrapper');
-                        if (clonedAdviceWrapper) {
-                            clonedAdviceWrapper.style.position = 'relative';
-                            clonedAdviceWrapper.style.top = '-5px';
-                        }
-                    }
-                });
+                const canvas = await html2canvas(cardCanvas, getHtml2CanvasConfig());
 
                 canvas.toBlob(async (blob) => {
                     try {
@@ -1341,59 +1348,7 @@
             const originalText = btn.innerHTML;
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Processing...`;
 
-            html2canvas(cardCanvas, {
-                scale: 3,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: null,
-                logging: false,
-                onclone: (clonedDoc) => {
-                    const clonedIconWrapper = clonedDoc.getElementById('cardIconWrapper');
-                    const clonedIcon = clonedDoc.getElementById('cardIcon');
-                    const clonedRefCode = clonedDoc.getElementById('previewRefCode');
-                    const clonedBadgeIcon = clonedDoc.querySelector('.fa-check-double');
-
-                    if (clonedIconWrapper) {
-                        clonedIconWrapper.style.display = 'flex';
-                        clonedIconWrapper.style.alignItems = 'center';
-                        clonedIconWrapper.style.justifyContent = 'center';
-                        clonedIconWrapper.style.paddingBottom = '12px';
-                    }
-                    if (clonedIcon) {
-                        clonedIcon.style.display = 'flex';
-                        clonedIcon.style.alignItems = 'center';
-                        clonedIcon.style.justifyContent = 'center';
-                        clonedIcon.style.lineHeight = '1';
-                        clonedIcon.style.paddingBottom = '12px';
-                    }
-                    if (clonedRefCode) {
-                        clonedRefCode.style.display = 'flex';
-                        clonedRefCode.style.alignItems = 'center';
-                        clonedRefCode.style.justifyContent = 'center';
-                        clonedRefCode.style.lineHeight = '1';
-                        clonedRefCode.style.paddingBottom = '17px';
-                    }
-                    if (clonedBadgeIcon) {
-                        clonedBadgeIcon.style.position = 'relative';
-                        clonedBadgeIcon.style.top = '-7px';
-                    }
-                    const clonedTitle = clonedDoc.getElementById('previewTitle');
-                    if (clonedTitle) {
-                        clonedTitle.style.position = 'relative';
-                        clonedTitle.style.top = '-25px';
-                    }
-                    const clonedBodyContainer = clonedDoc.getElementById('previewBodyContainer');
-                    if (clonedBodyContainer) {
-                        clonedBodyContainer.style.position = 'relative';
-                        clonedBodyContainer.style.top = '-10px';
-                    }
-                    const clonedAdviceWrapper = clonedDoc.getElementById('adviceWrapper');
-                    if (clonedAdviceWrapper) {
-                        clonedAdviceWrapper.style.position = 'relative';
-                        clonedAdviceWrapper.style.top = '-5px';
-                    }
-                }
-            }).then(canvas => {
+            html2canvas(cardCanvas, getHtml2CanvasConfig()).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Health-Tip-${Date.now()}.png`;
                 link.href = canvas.toDataURL('image/png');
