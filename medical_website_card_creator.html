@@ -450,7 +450,8 @@
                             <option value="none" data-i18n="optNone">بدون أقواس تنصيص (سادة)</option>
                             <option value="floral-flourish" data-i18n="optFloral">زخرفة نباتية كلاسيكية (Classic Floral
                                 Accent)</option>
-                            <option value="floral-heart-pulse" data-i18n="optFloralHeartPulse">زخرفة نباتية مع قلب ونبض (Floral Heart & Pulse Accent)</option>
+                            <option value="floral-heart-pulse" data-i18n="optFloralHeartPulse">زخرفة نباتية مع قلب ونبض
+                                (Floral Heart & Pulse Accent)</option>
                             <option value="pulse-wave" data-i18n="optPulse">نقش نبضات القلب الحديث (Medical Pulse Art)
                             </option>
                         </select>
@@ -568,7 +569,6 @@
 
                     <!-- CARD CANVAS PREVIEW -->
                     <div id="cardCanvas" dir="rtl"
-
                         class="card-preview-container rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-all duration-300 bg-gradient-to-br from-mint-600 via-emerald-700 to-teal-900 text-white select-none text-right">
 
                         <!-- Dynamic Ornament SVG Container -->
@@ -595,9 +595,9 @@
                         </div>
 
                         <!-- Card Body Content -->
-                        <div class="relative z-10 my-auto py-4 space-y-4 w-full overflow-hidden">
+                        <div class="relative z-10 my-auto py-3 space-y-2.5 w-full overflow-hidden">
                             <h2 id="previewTitle"
-                                class="text-2xl sm:text-3xl font-black leading-relaxed tracking-normal drop-shadow-sm font-cairo mb-2 break-words">
+                                class="text-2xl sm:text-3xl font-black leading-relaxed tracking-normal drop-shadow-sm font-cairo mb-1 break-words">
                                 أهمية شرب الماء لصحة وسلامة القلب
                             </h2>
 
@@ -1215,6 +1215,10 @@
 
         const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/Fxok8kBRxIp6vBrDA15aaE';
 
+        function injectExportBadge(cardCanvas) {
+            return null;
+        }
+
         async function shareToWhatsApp() {
             const shareBtn = document.querySelector('[onclick="shareToWhatsApp()"]');
             const originalHTML = shareBtn ? shareBtn.innerHTML : '';
@@ -1231,7 +1235,52 @@
                 const canvas = await html2canvas(cardCanvas, {
                     scale: 3,
                     useCORS: true,
-                    backgroundColor: null
+                    allowTaint: true,
+                    backgroundColor: null,
+                    logging: false,
+                    onclone: (clonedDoc) => {
+                        const clonedIconWrapper = clonedDoc.getElementById('cardIconWrapper');
+                        const clonedIcon = clonedDoc.getElementById('cardIcon');
+                        const clonedRefCode = clonedDoc.getElementById('previewRefCode');
+                        const clonedBadgeIcon = clonedDoc.querySelector('.fa-check-double');
+
+                        if (clonedIconWrapper) {
+                            clonedIconWrapper.style.display = 'flex';
+                            clonedIconWrapper.style.alignItems = 'center';
+                            clonedIconWrapper.style.justifyContent = 'center';
+                        }
+                        if (clonedIcon) {
+                            clonedIcon.style.display = 'flex';
+                            clonedIcon.style.alignItems = 'center';
+                            clonedIcon.style.justifyContent = 'center';
+                            clonedIcon.style.lineHeight = '1';
+                        }
+                        if (clonedRefCode) {
+                            clonedRefCode.style.display = 'flex';
+                            clonedRefCode.style.alignItems = 'center';
+                            clonedRefCode.style.justifyContent = 'center';
+                            clonedRefCode.style.lineHeight = '1';
+                        }
+                        if (clonedBadgeIcon) {
+                            clonedBadgeIcon.style.position = 'relative';
+                            clonedBadgeIcon.style.top = '-7px';
+                        }
+                        const clonedTitle = clonedDoc.getElementById('previewTitle');
+                        if (clonedTitle) {
+                            clonedTitle.style.position = 'relative';
+                            clonedTitle.style.top = '-25px';
+                        }
+                        const clonedBodyContainer = clonedDoc.getElementById('previewBodyContainer');
+                        if (clonedBodyContainer) {
+                            clonedBodyContainer.style.position = 'relative';
+                            clonedBodyContainer.style.top = '-10px';
+                        }
+                        const clonedAdviceWrapper = clonedDoc.getElementById('adviceWrapper');
+                        if (clonedAdviceWrapper) {
+                            clonedAdviceWrapper.style.position = 'relative';
+                            clonedAdviceWrapper.style.top = '-5px';
+                        }
+                    }
                 });
 
                 canvas.toBlob(async (blob) => {
@@ -1295,7 +1344,55 @@
             html2canvas(cardCanvas, {
                 scale: 3,
                 useCORS: true,
-                backgroundColor: null
+                allowTaint: true,
+                backgroundColor: null,
+                logging: false,
+                onclone: (clonedDoc) => {
+                    const clonedIconWrapper = clonedDoc.getElementById('cardIconWrapper');
+                    const clonedIcon = clonedDoc.getElementById('cardIcon');
+                    const clonedRefCode = clonedDoc.getElementById('previewRefCode');
+                    const clonedBadgeIcon = clonedDoc.querySelector('.fa-check-double');
+
+                    if (clonedIconWrapper) {
+                        clonedIconWrapper.style.display = 'flex';
+                        clonedIconWrapper.style.alignItems = 'center';
+                        clonedIconWrapper.style.justifyContent = 'center';
+                        clonedIconWrapper.style.paddingBottom = '12px';
+                    }
+                    if (clonedIcon) {
+                        clonedIcon.style.display = 'flex';
+                        clonedIcon.style.alignItems = 'center';
+                        clonedIcon.style.justifyContent = 'center';
+                        clonedIcon.style.lineHeight = '1';
+                        clonedIcon.style.paddingBottom = '12px';
+                    }
+                    if (clonedRefCode) {
+                        clonedRefCode.style.display = 'flex';
+                        clonedRefCode.style.alignItems = 'center';
+                        clonedRefCode.style.justifyContent = 'center';
+                        clonedRefCode.style.lineHeight = '1';
+                        clonedRefCode.style.paddingBottom = '17px';
+                    }
+                    if (clonedBadgeIcon) {
+                        clonedBadgeIcon.style.position = 'relative';
+                        clonedBadgeIcon.style.top = '-7px';
+                    }
+                    const clonedTitle = clonedDoc.getElementById('previewTitle');
+                    if (clonedTitle) {
+                        clonedTitle.style.position = 'relative';
+                        clonedTitle.style.top = '-25px';
+                    }
+                    const clonedBodyContainer = clonedDoc.getElementById('previewBodyContainer');
+                    if (clonedBodyContainer) {
+                        clonedBodyContainer.style.position = 'relative';
+                        clonedBodyContainer.style.top = '-10px';
+                    }
+                    const clonedAdviceWrapper = clonedDoc.getElementById('adviceWrapper');
+                    if (clonedAdviceWrapper) {
+                        clonedAdviceWrapper.style.position = 'relative';
+                        clonedAdviceWrapper.style.top = '-5px';
+                    }
+                }
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Health-Tip-${Date.now()}.png`;
