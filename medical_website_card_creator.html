@@ -484,6 +484,47 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-darkbg text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-mint-500 dark:focus:ring-gold-400 outline-none">شرب ما لا يقل عن 2.5 لتر من الماء يومياً يحافظ على لزوجة الدم المثالية، ويقلل من الإجهاد الواقع على عضلة القلب والدورة الدموية.</textarea>
                         </div>
 
+                        <!-- Font Sizes & Card Height Auto-Expand Controls -->
+                        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
+                            <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-text-height text-mint-500 dark:text-gold-400"></i>
+                                <span data-i18n="lblTextSizeSettings">أحجام الخطوط وتعديل الارتفاع (Font Sizes & Card Height)</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <label class="text-[11px] font-bold text-slate-600 dark:text-slate-400" data-i18n="lblTitleFontSize">حجم خط العنوان</label>
+                                        <span id="titleFontSizeVal" class="text-[11px] font-bold text-mint-600 dark:text-gold-400">24px</span>
+                                    </div>
+                                    <input type="range" id="inputTitleFontSize" min="16" max="44" value="24" step="1"
+                                        oninput="updateCardFontStyles()"
+                                        class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-mint-500 dark:accent-gold-400">
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <label class="text-[11px] font-bold text-slate-600 dark:text-slate-400" data-i18n="lblBodyFontSize">حجم خط المحتوى</label>
+                                        <span id="bodyFontSizeVal" class="text-[11px] font-bold text-mint-600 dark:text-gold-400">15px</span>
+                                    </div>
+                                    <input type="range" id="inputBodyFontSize" min="11" max="28" value="15" step="1"
+                                        oninput="updateCardFontStyles()"
+                                        class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-mint-500 dark:accent-gold-400">
+                                </div>
+                            </div>
+
+                            <!-- Auto-Expand Card Height Checkbox -->
+                            <div class="pt-2 border-t border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+                                <label for="inputAutoExpand" class="flex items-center gap-2.5 cursor-pointer select-none">
+                                    <input type="checkbox" id="inputAutoExpand" onchange="updateCardFontStyles()"
+                                        class="w-4 h-4 rounded text-mint-500 dark:text-gold-400 focus:ring-mint-500 dark:focus:ring-gold-400 border-slate-300 dark:border-slate-700 cursor-pointer accent-mint-500 dark:accent-gold-400">
+                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300" data-i18n="lblAutoExpand">
+                                        تفعيل تمدد المحتوى (الكارد يطول حسب المحتوى)
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1"
@@ -1144,6 +1185,46 @@
                 localStorage.setItem('cardLogoFit', fit);
             };
 
+            // Function to update Card Title & Body Font Sizes & Height Expansion
+            window.updateCardFontStyles = function() {
+                const titleInput = document.getElementById('inputTitleFontSize');
+                const bodyInput = document.getElementById('inputBodyFontSize');
+                const autoExpandInput = document.getElementById('inputAutoExpand');
+
+                const titleValSpan = document.getElementById('titleFontSizeVal');
+                const bodyValSpan = document.getElementById('bodyFontSizeVal');
+
+                const previewTitle = document.getElementById('previewTitle');
+                const previewBodyContainer = document.getElementById('previewBodyContainer');
+                const cardCanvas = document.getElementById('cardCanvas');
+
+                if (!previewTitle || !previewBodyContainer || !cardCanvas) return;
+
+                const titleSize = titleInput ? (parseInt(titleInput.value) || 24) : 24;
+                const bodySize = bodyInput ? (parseInt(bodyInput.value) || 15) : 15;
+                const isAutoExpand = autoExpandInput ? autoExpandInput.checked : false;
+
+                if (titleValSpan) titleValSpan.textContent = `${titleSize}px`;
+                if (bodyValSpan) bodyValSpan.textContent = `${bodySize}px`;
+
+                previewTitle.style.fontSize = `${titleSize}px`;
+                previewBodyContainer.style.fontSize = `${bodySize}px`;
+
+                if (isAutoExpand) {
+                    cardCanvas.style.aspectRatio = 'auto';
+                    cardCanvas.style.minHeight = '480px';
+                    cardCanvas.style.height = 'auto';
+                } else {
+                    cardCanvas.style.aspectRatio = '4/5';
+                    cardCanvas.style.minHeight = '';
+                    cardCanvas.style.height = '';
+                }
+
+                localStorage.setItem('cardTitleFontSize', titleSize);
+                localStorage.setItem('cardBodyFontSize', bodySize);
+                localStorage.setItem('cardAutoExpand', isAutoExpand ? 'true' : 'false');
+            };
+
             // Handle logo selection
             const logoSelect = document.getElementById('inputLogo');
             if (logoSelect) {
@@ -1204,6 +1285,20 @@
             if (savedIcon) {
                 setCardIcon(savedIcon, null);
             }
+
+            // Load saved font sizes & auto expand settings
+            const savedTitleSize = localStorage.getItem('cardTitleFontSize');
+            const savedBodySize = localStorage.getItem('cardBodyFontSize');
+            const savedAutoExpand = localStorage.getItem('cardAutoExpand');
+            const titleInput = document.getElementById('inputTitleFontSize');
+            const bodyInput = document.getElementById('inputBodyFontSize');
+            const autoExpandInput = document.getElementById('inputAutoExpand');
+
+            if (titleInput && savedTitleSize) titleInput.value = savedTitleSize;
+            if (bodyInput && savedBodySize) bodyInput.value = savedBodySize;
+            if (autoExpandInput && savedAutoExpand !== null) autoExpandInput.checked = (savedAutoExpand === 'true');
+
+            updateCardFontStyles();
         }
 
         function changeCardDirection(dir) {
@@ -1400,6 +1495,10 @@
                     cardCanvas.classList.add('bg-gradient-to-br', 'from-mint-600', 'via-emerald-700', 'to-teal-900', 'text-white');
                     if (adviceWrapper) adviceWrapper.classList.add('bg-white/15', 'border-white/20');
                     if (cardIconWrapper) cardIconWrapper.classList.add('bg-white/20', 'border-white/30', 'text-white');
+            }
+
+            if (window.updateCardFontStyles) {
+                window.updateCardFontStyles();
             }
         }
 
@@ -1637,6 +1736,10 @@
                 optLogoContain: "احتواء أبعاد أصلية (Contain)",
                 optLogoCover: "قص وتعبئة الفراغ (Cover)",
                 optLogoFill: "استريتش وتعبئة كاملة للمساحة (Stretch & Fill)",
+                lblTextSizeSettings: "أحجام الخطوط وتعديل الارتفاع (Font Sizes & Card Height)",
+                lblTitleFontSize: "حجم خط العنوان",
+                lblBodyFontSize: "حجم خط المحتوى",
+                lblAutoExpand: "تفعيل تمدد المحتوى (الكارد يطول حسب المحتوى)",
                 step4Label: "4. اختيار الأيقونة الطبية",
                 livePreviewTag: "المعاينة المباشرة (Live Preview Card)",
                 btnDownloadPng: "تحميل البطاقة كـ (PNG)",
@@ -1745,6 +1848,10 @@
                 optLogoContain: "Original Dimensions (Contain)",
                 optLogoCover: "Crop & Cover Space",
                 optLogoFill: "Stretch & Fill Container",
+                lblTextSizeSettings: "Font Sizes & Height Adjustment",
+                lblTitleFontSize: "Title Font Size",
+                lblBodyFontSize: "Content Font Size",
+                lblAutoExpand: "Auto Expand Content (Card height grows with text)",
                 step4Label: "4. Choose Medical Icon",
                 livePreviewTag: "Live Preview Card",
                 btnDownloadPng: "Download Card (PNG)",
