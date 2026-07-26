@@ -504,9 +504,13 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1" data-i18n="lblLogo">
-                                        صورة اللوجو (Logo Image)</label>
-                                    <input type="file" id="inputLogo" accept="image/*"
-                                        class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-darkbg text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-mint-500 dark:focus:ring-gold-400 outline-none">
+                                        اختيار اللوجو (Logo Selection)</label>
+                                    <select id="inputLogo"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-darkbg text-slate-900 dark:text-white text-xs font-bold focus:ring-2 focus:ring-mint-500 dark:focus:ring-gold-400 outline-none">
+                                        <option value="">بدون لوجو (No Logo)</option>
+                                        <option value="logo_W.png">لوجو أبيض (White Logo)</option>
+                                        <option value="logo_B.png">لوجو أسود (Black Logo)</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1"
@@ -1140,32 +1144,28 @@
                 localStorage.setItem('cardLogoFit', fit);
             };
 
-            // Handle logo image upload
-            const logoInput = document.getElementById('inputLogo');
-            if (logoInput) {
-                logoInput.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            const rawData = event.target.result;
-                            trimTransparentEdges(rawData, function(trimmedDataUrl) {
-                                const logo = document.getElementById('previewLogo');
-                                if (logo) {
-                                    logo.src = trimmedDataUrl;
-                                    logo.classList.remove('hidden');
-                                    updateLogoStyles();
-                                }
-                                localStorage.setItem('cardLogo', trimmedDataUrl);
-                            });
-                        };
-                        reader.readAsDataURL(file);
+            // Handle logo selection
+            const logoSelect = document.getElementById('inputLogo');
+            if (logoSelect) {
+                logoSelect.addEventListener('change', function() {
+                    const logo = document.getElementById('previewLogo');
+                    if (logo) {
+                        if (this.value) {
+                            logo.src = this.value;
+                            logo.classList.remove('hidden');
+                            updateLogoStyles();
+                            localStorage.setItem('selectedLogo', this.value);
+                        } else {
+                            logo.classList.add('hidden');
+                            localStorage.removeItem('selectedLogo');
+                        }
                     }
                 });
 
-                // Load saved logo
-                const savedLogo = localStorage.getItem('cardLogo');
+                // Load saved logo selection
+                const savedLogo = localStorage.getItem('selectedLogo');
                 if (savedLogo) {
+                    logoSelect.value = savedLogo;
                     const logo = document.getElementById('previewLogo');
                     if (logo) {
                         logo.src = savedLogo;
