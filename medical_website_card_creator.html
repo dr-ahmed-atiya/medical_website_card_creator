@@ -525,6 +525,62 @@
                             </div>
                         </div>
 
+                        <!-- Highlight & Text Color Dropdown Control -->
+                        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-3">
+                            <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center justify-between">
+                                <span class="flex items-center gap-1.5">
+                                    <i class="fa-solid fa-highlighter text-amber-500 dark:text-gold-400"></i>
+                                    <span>تحديد وتغيير لون النص داخل الكارد (Text Color Dropdown)</span>
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-gold-500/20 text-amber-800 dark:text-gold-300 font-bold">حدد النص بالماوس ثم اختر اللون</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+                                    دروب منيو تشكيلة ألوان النص (اختر لتطبيق اللون):
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <select id="cardTextColorDropdown" onchange="applySelectedTextColor(this.value)"
+                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-darkbg text-slate-900 dark:text-white text-xs font-bold focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer shadow-sm">
+                                        <option value="" selected disabled>--- 🎨 اختر من قائمة أجمل الألوان لتلوين النص المحدد ---</option>
+                                        <option value="#fbbf24">👑 ذهبي ملكي براق (Royal Gold)</option>
+                                        <option value="#f59e0b">🌟 ذهبي دافئ أنيق (Warm Amber)</option>
+                                        <option value="#34d399">💎 زمردي ناصع (Bright Emerald)</option>
+                                        <option value="#10b981">🌿 نيون مينت متألق (Neon Mint)</option>
+                                        <option value="#22d3ee">🩵 فيروزي نيون ساطع (Neon Cyan)</option>
+                                        <option value="#3b82f6">💙 أزرق ملكي فاخر (Royal Blue)</option>
+                                        <option value="#c084fc">💜 بنفسجي ملكي (Royal Purple)</option>
+                                        <option value="#fb7185">💖 روز جولد أنيق (Rose Gold)</option>
+                                        <option value="#f87171">❤️ أحمر عنابي قرمزي (Vibrant Crimson)</option>
+                                        <option value="#fb923c">🧡 برتقالي توهج (Glowing Coral)</option>
+                                        <option value="#facc15">💛 أصفر كهربائي براق (Electric Yellow)</option>
+                                        <option value="#ffffff">🤍 أبيض ناصع (Bright White)</option>
+                                        <option value="#0f172a">🖤 أسود داكن (Deep Slate)</option>
+                                        <option value="#cbd5e1">🩶 فضي معدني (Metallic Silver)</option>
+                                        <option value="#e9d5ff">🌸 لافندر ناعم (Soft Lavender)</option>
+                                        <option value="custom">🎨 اختيار لون مخصص (Color Picker)...</option>
+                                        <option value="RESET">🔄 إزالة التلوين (إعادة للون الأصلي)</option>
+                                    </select>
+                                    <input type="color" id="customTextColorPicker" value="#fbbf24" onchange="applySelectedTextColor(this.value)" class="w-10 h-10 rounded-xl border border-slate-300 dark:border-slate-700 cursor-pointer hidden flex-shrink-0">
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-1">
+                                <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400">وصول سريع للألوان:</span>
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <button type="button" onclick="applySelectedTextColor('#fbbf24')" class="w-6 h-6 rounded-full bg-[#fbbf24] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="ذهبي ملكي"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#34d399')" class="w-6 h-6 rounded-full bg-[#34d399] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="زمردي ناصع"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#22d3ee')" class="w-6 h-6 rounded-full bg-[#22d3ee] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="فيروزي نيون"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#c084fc')" class="w-6 h-6 rounded-full bg-[#c084fc] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="بنفسجي ملكي"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#fb7185')" class="w-6 h-6 rounded-full bg-[#fb7185] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="روز جولد"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#f87171')" class="w-6 h-6 rounded-full bg-[#f87171] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="أحمر عنابي"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#facc15')" class="w-6 h-6 rounded-full bg-[#facc15] border border-white/60 shadow-sm hover:scale-125 transition-transform" title="أصفر كهربائي"></button>
+                                    <button type="button" onclick="applySelectedTextColor('#ffffff')" class="w-6 h-6 rounded-full bg-white border border-slate-300 shadow-sm hover:scale-125 transition-transform" title="أبيض ناصع"></button>
+                                    <button type="button" onclick="applySelectedTextColor('RESET')" class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-300 transition-colors" title="إزالة التنسيق">تفريغ</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1"
@@ -669,9 +725,42 @@
                         </span>
                     </div>
 
+                    <!-- Floating Text Color Selection Toolbar Popup -->
+                    <div id="cardTextSelectionToolbar"
+                        class="fixed z-50 hidden bg-slate-900/95 dark:bg-darkcard/95 text-white backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center gap-2.5 transition-all duration-200 select-none">
+                        <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1">
+                            <i class="fa-solid fa-palette"></i> لون النص:
+                        </span>
+                        <select id="floatingColorSelect" onchange="applySelectedTextColor(this.value)"
+                            class="px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs font-bold outline-none cursor-pointer">
+                            <option value="" disabled selected>🎨 اختر اللون...</option>
+                            <option value="#fbbf24">👑 ذهبي ملكي</option>
+                            <option value="#f59e0b">🌟 ذهبي دافئ</option>
+                            <option value="#34d399">💎 زمردي ناصع</option>
+                            <option value="#10b981">🌿 نيون مينت</option>
+                            <option value="#22d3ee">🩵 فيروزي نيون</option>
+                            <option value="#3b82f6">💙 أزرق ملكي</option>
+                            <option value="#c084fc">💜 بنفسجي ملكي</option>
+                            <option value="#fb7185">💖 روز جولد</option>
+                            <option value="#f87171">❤️ أحمر عنابي</option>
+                            <option value="#fb923c">🧡 برتقالي توهج</option>
+                            <option value="#facc15">💛 أصفر كهربائي</option>
+                            <option value="#ffffff">🤍 أبيض ناصع</option>
+                            <option value="#0f172a">🖤 أسود داكن</option>
+                            <option value="#cbd5e1">🩶 فضي معدني</option>
+                            <option value="RESET">🔄 إزالة التنسيق</option>
+                        </select>
+                        <div class="flex items-center gap-1">
+                            <button type="button" onclick="applySelectedTextColor('#fbbf24')" class="w-5 h-5 rounded-full bg-[#fbbf24] border border-white/60 hover:scale-125 transition-transform" title="ذهبي"></button>
+                            <button type="button" onclick="applySelectedTextColor('#34d399')" class="w-5 h-5 rounded-full bg-[#34d399] border border-white/60 hover:scale-125 transition-transform" title="زمردي"></button>
+                            <button type="button" onclick="applySelectedTextColor('#22d3ee')" class="w-5 h-5 rounded-full bg-[#22d3ee] border border-white/60 hover:scale-125 transition-transform" title="فيروزي"></button>
+                            <button type="button" onclick="applySelectedTextColor('#fb7185')" class="w-5 h-5 rounded-full bg-[#fb7185] border border-white/60 hover:scale-125 transition-transform" title="روز جولد"></button>
+                        </div>
+                    </div>
+
                     <!-- CARD CANVAS PREVIEW -->
                     <div id="cardCanvas" dir="rtl"
-                        class="card-preview-container rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-all duration-300 bg-gradient-to-br from-mint-600 via-emerald-700 to-teal-900 text-white select-none text-right">
+                        class="card-preview-container rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-all duration-300 bg-gradient-to-br from-mint-600 via-emerald-700 to-teal-900 text-white select-text cursor-text text-right">
 
                         <!-- Dynamic Ornament SVG Container -->
                         <div id="ornamentContainer" class="absolute inset-0 pointer-events-none z-0"></div>
@@ -684,13 +773,13 @@
                                     <i id="cardIcon"
                                         class="fa-solid fa-heart-pulse w-full h-full flex items-center justify-center leading-none m-0 p-0 text-center"></i>
                                 </div>
-                                <span id="previewCategory"
-                                    class="text-xs sm:text-sm font-bold leading-normal opacity-95 font-cairo">معلومة
+                                <span id="previewCategory" contenteditable="true"
+                                    class="text-xs sm:text-sm font-bold leading-normal opacity-95 font-cairo outline-none focus:ring-1 focus:ring-amber-400 rounded px-1">معلومة
                                     طبية يومية</span>
                             </div>
 
                             <!-- Verified Badge -->
-                            <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center border border-white/25 text-sm"
+                            <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center border border-white/25 text-sm select-none"
                                 title="بطاقة معتمدة">
                                 <i class="fa-solid fa-check-double text-xs"></i>
                             </div>
@@ -698,8 +787,8 @@
 
                         <!-- Card Body Content -->
                         <div class="relative z-10 my-auto py-3 space-y-2.5 w-full overflow-hidden">
-                            <h2 id="previewTitle"
-                                class="text-2xl sm:text-3xl font-black leading-relaxed tracking-normal drop-shadow-sm font-cairo mb-1 break-words">
+                            <h2 id="previewTitle" contenteditable="true"
+                                class="text-2xl sm:text-3xl font-black leading-relaxed tracking-normal drop-shadow-sm font-cairo mb-1 break-words outline-none focus:ring-1 focus:ring-amber-400 rounded px-1">
                                 أهمية شرب الماء لصحة وسلامة القلب
                             </h2>
 
@@ -710,7 +799,7 @@
                                     class="text-sm sm:text-base opacity-95 leading-relaxed font-medium font-tajawal break-words">
                                     <span id="quoteStart"
                                         class="inline text-xl sm:text-2xl font-black font-serif opacity-90 select-none text-amber-300 me-1.5">,,</span><span
-                                        id="previewBody">شرب ما لا يقل عن 2.5 لتر من الماء يومياً يحافظ على لزوجة الدم
+                                        id="previewBody" contenteditable="true" class="outline-none focus:ring-1 focus:ring-amber-400 rounded px-1">شرب ما لا يقل عن 2.5 لتر من الماء يومياً يحافظ على لزوجة الدم
                                         المثالية، ويقلل من الإجهاد الواقع على عضلة القلب والدورة الدموية.</span><span
                                         id="quoteEnd"
                                         class="inline text-xl sm:text-2xl font-black font-serif opacity-90 select-none text-amber-300">“</span>
@@ -721,11 +810,11 @@
                         <!-- Card Footer -->
                         <div class="relative z-10 pt-4 border-t border-white/25 flex items-center justify-between min-h-[90px]">
                             <div>
-                                <div id="previewSignature" class="text-sm font-black font-cairo">د. أحمد بن عطية</div>
-                                <div id="previewSubtext" class="text-[11px] opacity-80 font-medium">استشاري الأمراض
+                                <div id="previewSignature" contenteditable="true" class="text-sm font-black font-cairo outline-none focus:ring-1 focus:ring-amber-400 rounded px-1">د. أحمد بن عطية</div>
+                                <div id="previewSubtext" contenteditable="true" class="text-[11px] opacity-80 font-medium outline-none focus:ring-1 focus:ring-amber-400 rounded px-1">استشاري الأمراض
                                     الباطنية</div>
                             </div>
-                            <div id="previewLogoWrapper" class="flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <div id="previewLogoWrapper" class="flex items-center justify-center flex-shrink-0 overflow-hidden select-none">
                                 <img id="previewLogo" src="" alt="Logo" class="transition-all duration-150 hidden">
                             </div>
                         </div>
@@ -1037,6 +1126,192 @@
         // Load saved language from localStorage or default to 'ar'
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
 
+        /* --- Card Text Selection & Custom Color Styling System --- */
+        let savedSelectionRange = null;
+        let lastFocusedCardElement = null;
+
+        function trackCardSelection() {
+            const cardCanvas = document.getElementById('cardCanvas');
+            const toolbar = document.getElementById('cardTextSelectionToolbar');
+            if (!cardCanvas) return;
+
+            const selection = window.getSelection();
+            if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
+                const range = selection.getRangeAt(0);
+                if (cardCanvas.contains(range.commonAncestorContainer)) {
+                    savedSelectionRange = range.cloneRange();
+
+                    // Position floating toolbar near selection
+                    if (toolbar) {
+                        const rect = range.getBoundingClientRect();
+                        const top = Math.max(10, rect.top - 50);
+                        const left = Math.max(10, Math.min(window.innerWidth - 280, rect.left + (rect.width / 2) - 130));
+                        toolbar.style.top = `${top}px`;
+                        toolbar.style.left = `${left}px`;
+                        toolbar.classList.remove('hidden');
+                    }
+                    return;
+                }
+            }
+        }
+
+        // Listen for mouse selection events on document
+        document.addEventListener('selectionchange', () => {
+            trackCardSelection();
+        });
+
+        document.addEventListener('pointerup', (e) => {
+            const toolbar = document.getElementById('cardTextSelectionToolbar');
+            const cardCanvas = document.getElementById('cardCanvas');
+            if (!toolbar || !cardCanvas) return;
+
+            if (toolbar.contains(e.target)) return;
+
+            setTimeout(() => {
+                const selection = window.getSelection();
+                if (!selection || selection.isCollapsed || !cardCanvas.contains(selection.anchorNode)) {
+                    toolbar.classList.add('hidden');
+                } else {
+                    trackCardSelection();
+                }
+            }, 50);
+        });
+
+        // Track clicked/focused editable elements in card canvas
+        document.addEventListener('click', (e) => {
+            const cardCanvas = document.getElementById('cardCanvas');
+            if (cardCanvas && cardCanvas.contains(e.target)) {
+                if (e.target.isContentEditable || (e.target.id && e.target.id.startsWith('preview'))) {
+                    lastFocusedCardElement = e.target;
+                }
+            }
+        });
+
+        function applySelectedTextColor(color) {
+            const dropdown = document.getElementById('cardTextColorDropdown');
+            const floatingSelect = document.getElementById('floatingColorSelect');
+            const customPicker = document.getElementById('customTextColorPicker');
+
+            if (color === 'custom') {
+                if (customPicker) {
+                    customPicker.classList.remove('hidden');
+                    customPicker.click();
+                }
+                return;
+            }
+
+            if (!color) return;
+
+            let selection = window.getSelection();
+            let range = null;
+
+            if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
+                const selRange = selection.getRangeAt(0);
+                const cardCanvas = document.getElementById('cardCanvas');
+                if (cardCanvas && cardCanvas.contains(selRange.commonAncestorContainer)) {
+                    range = selRange;
+                }
+            }
+
+            if (!range && savedSelectionRange) {
+                range = savedSelectionRange;
+            }
+
+            const cardCanvas = document.getElementById('cardCanvas');
+
+            if (range && cardCanvas && cardCanvas.contains(range.commonAncestorContainer)) {
+                if (color === 'RESET') {
+                    const contents = range.extractContents();
+                    const tempDiv = document.createElement('div');
+                    tempDiv.appendChild(contents);
+                    tempDiv.querySelectorAll('span[style*="color"]').forEach(span => {
+                        const parent = span.parentNode;
+                        while (span.firstChild) parent.insertBefore(span.firstChild, span);
+                        parent.removeChild(span);
+                    });
+                    range.insertNode(tempDiv.firstChild || document.createTextNode(tempDiv.textContent));
+                } else {
+                    const span = document.createElement('span');
+                    span.style.color = color;
+                    span.style.fontWeight = 'inherit';
+                    span.style.transition = 'color 0.2s ease';
+
+                    try {
+                        const selectedContent = range.extractContents();
+                        span.appendChild(selectedContent);
+                        range.insertNode(span);
+                    } catch (err) {
+                        console.error('Error applying color to selection:', err);
+                        document.execCommand('foreColor', false, color);
+                    }
+                }
+            } else if (lastFocusedCardElement && cardCanvas && cardCanvas.contains(lastFocusedCardElement)) {
+                if (color === 'RESET') {
+                    lastFocusedCardElement.style.color = '';
+                    lastFocusedCardElement.querySelectorAll('span[style*="color"]').forEach(span => {
+                        span.style.color = '';
+                    });
+                } else {
+                    lastFocusedCardElement.style.color = color;
+                }
+            } else {
+                alert('💡 طريقة التغيير: قم بتحديد أي نص داخل البطاقة المعروضة باستخدام الماوس أو اللمس، ثم اختر اللون المطلوب من القائمة!');
+                if (dropdown) dropdown.value = '';
+                if (floatingSelect) floatingSelect.value = '';
+                return;
+            }
+
+            // Clear selection and hide toolbar
+            if (window.getSelection()) window.getSelection().removeAllRanges();
+            savedSelectionRange = null;
+
+            const toolbar = document.getElementById('cardTextSelectionToolbar');
+            if (toolbar) toolbar.classList.add('hidden');
+
+            if (dropdown) dropdown.value = '';
+            if (floatingSelect) floatingSelect.value = '';
+
+            saveFormattedCardState();
+        }
+
+        function saveFormattedCardState() {
+            const previewTitle = document.getElementById('previewTitle');
+            const previewBody = document.getElementById('previewBody');
+            const previewCategory = document.getElementById('previewCategory');
+            const previewSignature = document.getElementById('previewSignature');
+            const previewSubtext = document.getElementById('previewSubtext');
+
+            if (previewTitle) localStorage.setItem('customHTML_previewTitle', previewTitle.innerHTML);
+            if (previewBody) localStorage.setItem('customHTML_previewBody', previewBody.innerHTML);
+            if (previewCategory) localStorage.setItem('customHTML_previewCategory', previewCategory.innerHTML);
+            if (previewSignature) localStorage.setItem('customHTML_previewSignature', previewSignature.innerHTML);
+            if (previewSubtext) localStorage.setItem('customHTML_previewSubtext', previewSubtext.innerHTML);
+        }
+
+        function loadFormattedCardState() {
+            const previewTitle = document.getElementById('previewTitle');
+            const previewBody = document.getElementById('previewBody');
+            const previewCategory = document.getElementById('previewCategory');
+            const previewSignature = document.getElementById('previewSignature');
+            const previewSubtext = document.getElementById('previewSubtext');
+
+            if (previewTitle && localStorage.getItem('customHTML_previewTitle')) {
+                previewTitle.innerHTML = localStorage.getItem('customHTML_previewTitle');
+            }
+            if (previewBody && localStorage.getItem('customHTML_previewBody')) {
+                previewBody.innerHTML = localStorage.getItem('customHTML_previewBody');
+            }
+            if (previewCategory && localStorage.getItem('customHTML_previewCategory')) {
+                previewCategory.innerHTML = localStorage.getItem('customHTML_previewCategory');
+            }
+            if (previewSignature && localStorage.getItem('customHTML_previewSignature')) {
+                previewSignature.innerHTML = localStorage.getItem('customHTML_previewSignature');
+            }
+            if (previewSubtext && localStorage.getItem('customHTML_previewSubtext')) {
+                previewSubtext.innerHTML = localStorage.getItem('customHTML_previewSubtext');
+            }
+        }
+
         /* --- Live Input Listener Initialization for Card Studio --- */
         function initStudioListeners() {
             const bindings = [
@@ -1053,7 +1328,7 @@
                 if (inputEl && previewEl) {
                     // Load saved value from localStorage
                     const savedValue = localStorage.getItem(item.inputId);
-                    if (savedValue) {
+                    if (savedValue && !localStorage.getItem('customHTML_' + item.previewId)) {
                         inputEl.value = savedValue;
                         previewEl.textContent = savedValue;
                     }
@@ -1062,9 +1337,20 @@
                     inputEl.addEventListener('input', () => {
                         previewEl.textContent = inputEl.value;
                         localStorage.setItem(item.inputId, inputEl.value);
+                        saveFormattedCardState();
+                    });
+
+                    // Sync contenteditable changes on card back to input control
+                    previewEl.addEventListener('input', () => {
+                        inputEl.value = previewEl.textContent;
+                        localStorage.setItem(item.inputId, inputEl.value);
+                        saveFormattedCardState();
                     });
                 }
             });
+
+            // Restore custom formatted HTML spans if present
+            loadFormattedCardState();
 
             // Function to trim transparent empty margins around any PNG image
             function trimTransparentEdges(imageSrc, callback) {
